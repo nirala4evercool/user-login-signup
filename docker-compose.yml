@@ -1,0 +1,23 @@
+version: "3"
+services:
+  application:
+    image: login
+    ports:
+      - "8080:8080"
+    networks:
+      - login-net
+    depends_on:
+      - mysqldb
+  mysqldb:
+    image: mysql:5.7
+    networks:
+      - login-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=user-mgmt-app
+    volumes:
+      - app_data:/var/lib/mysql
+networks:
+  login-net:
+volumes:
+  app_data:
